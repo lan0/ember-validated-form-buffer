@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 import BufferedProxy from 'ember-buffered-proxy/proxy';
+import deepSet from 'ember-deep-set';
 
 const { keys } = Object;
 const {
@@ -45,7 +46,7 @@ export default BufferedProxy.extend(Evented, {
       let errors = makeArray(this.get(`validations.attrs.${key}.errors`));
       let messages = A(errors).mapBy('message');
       if (isPresent(messages)) {
-        clientErrors.set(key, messages);
+        deepSet(clientErrors, key, messages);
       }
     });
     return clientErrors;
